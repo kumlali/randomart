@@ -76,6 +76,7 @@ public class RandomArtCli {
         this.mode = mode;
         this.img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         createTrees(depth, rng);
+        render(false);
     }
 
     private void createTrees(int depth, Random rng) {
@@ -157,13 +158,21 @@ public class RandomArtCli {
     }
 
     public static void main(String[] args) throws IOException {        
-    	if (args.length > 0) {
-	        final String out = args[0];
-	    	final RandomArtCli rap = new RandomArtCli(800, 800, 7, new Random().nextInt(4));
-            rap.render(false);
-        	rap.save(out);
+    	if (args.length == 3) {    		
+    		final String outDir = args[0];
+    		final String fileNamePrefix = args[1];
+    		final int fileCount = Integer.parseInt(args[2]);
+	    	for (int i = 1; i < fileCount + 1; i++) {
+		    	final RandomArtCli rac = new RandomArtCli(800, 800, 7, new Random().nextInt(4));
+	        	rac.save(outDir + "/" + fileNamePrefix + String.format("%05d", i) + ".jpg");
+	    	}
     	} else {
-            System.out.println("Usage: java -jar randomart-0.0.1-SNAPSHOT.jar path/file.jpg");
+            System.out.println("Usage:"
+    	            + "\n    java -cp randomart-0.0.1-SNAPSHOT.jar kokkarinen.ilkka.RandomArtCli outDir fileNamePrefix fileCount"
+            		+ "\n\nExample:"
+    	            + "\n    Following command creates 25 random art jpg file (myimg00001.jpg to myimg00025.jpg) under /tmp directory: "
+            		+ "\n\n    java -cp randomart-0.0.1-SNAPSHOT.jar kokkarinen.ilkka.RandomArtCli /tmp/ myimg 25");
+
     	}
     	System.exit(0);
     }

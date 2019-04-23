@@ -22,7 +22,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>kokkarinen.ilkka.RandomArtCli</mainClass>
+							<mainClass>kokkarinen.ilkka.RandomArtPanel</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
